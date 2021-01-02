@@ -41,12 +41,18 @@ class _KaryawanDetailState extends State<KaryawanDetail> {
   }
 
   void submitUpdate() async {
-    PegawaiModel.updatePegawai(widget.id, namaController.text,
-            alamatController.text, nohpController.text)
-        .then((value) {
-      showSimpleFlushbar(context, value['message'].toString());
-      refreshList();
-    });
+    if (namaController.text != '' &&
+        alamatController.text != '' &&
+        nohpController.text != '') {
+      PegawaiModel.updatePegawai(widget.id, namaController.text,
+              alamatController.text, nohpController.text)
+          .then((value) {
+        showSimpleFlushbar(context, value['message'].toString());
+        refreshList();
+      });
+    } else {
+      showSimpleFlushbar(context, 'Data belum lengkap!');
+    }
   }
 
   void showSimpleFlushbar(BuildContext context, message) {

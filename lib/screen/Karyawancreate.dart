@@ -13,12 +13,18 @@ class _KaryawanCreateState extends State<KaryawanCreate> {
   final TextEditingController nohpController = TextEditingController();
 
   void submitData() async {
-    PegawaiModel.simpanPegawai(
-            namaController.text, alamatController.text, nohpController.text)
-        .then((value) {
-      FocusScope.of(context).requestFocus(new FocusNode());
-      showSimpleFlushbar(context, value['message'].toString());
-    });
+    if (namaController.text != '' &&
+        alamatController.text != '' &&
+        nohpController.text != '') {
+      PegawaiModel.simpanPegawai(
+              namaController.text, alamatController.text, nohpController.text)
+          .then((value) {
+        FocusScope.of(context).requestFocus(new FocusNode());
+        showSimpleFlushbar(context, value['message'].toString());
+      });
+    } else {
+      showSimpleFlushbar(context, 'Mohon lengkapi data!');
+    }
   }
 
   void showSimpleFlushbar(BuildContext context, message) {
